@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $validatedData=Validator::make($request->all(),
         [
-            'userName'=>'required',
+            'email'=>'required',
             'password'=>'required'
 
         ]);
@@ -29,7 +29,7 @@ class UserController extends Controller
             ],400);
         }
 
-        $user = User::where('userName', $request->userName)->first();
+        $user = User::where('email', $request->email)->first();
 
         if(!$user){
             return response()->json([
