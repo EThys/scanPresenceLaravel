@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('eventCurrency', 3)->nullable(); 
             $table->string('eventId')->nullable(); 
             $table->enum('status', [0, 1])->default(0);
+            $table->date('last_reset_date')->nullable();
             $table->rememberToken();
         });
     }

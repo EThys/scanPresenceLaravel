@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register',[UserController::class, 'register']);
 Route::post('/login',[UserController::class, 'login']);
 Route::post('/test',[TicketController::class, 'store']);
-Route::post('/scan',[TicketController::class, 'scan']);
+Route::post('/scan',[TicketController::class, 'scanBest']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
