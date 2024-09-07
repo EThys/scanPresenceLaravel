@@ -17,10 +17,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    use HasFactory;
+    protected $primaryKey = "UserId";
+    public $timestamps = false;
+    public $table="TUsers";
     protected $fillable = [
-        'name',
+        'userName',
         'email',
         'password',
+        "IsAdmin",
     ];
 
     /**
