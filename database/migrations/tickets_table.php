@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('qrcode'); 
             $table->string('eventName')->nullable(); 
             $table->string('eventAddress')->nullable();
-            $table->dateTime('eventDate')->nullable(); 
-            $table->dateTime('eventEndDate')->nullable(); 
+            $table->string('eventDate')->default('1970-01-01'); // Valeur par défaut
+            $table->string('eventEndDate')->default('1970-01-01'); // Valeur par défaut
             $table->string('eventCurrency', 3)->nullable(); 
             $table->string('eventId')->nullable(); 
             $table->enum('status', [0, 1])->default(0);
