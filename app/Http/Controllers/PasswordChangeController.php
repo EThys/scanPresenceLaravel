@@ -54,12 +54,12 @@ class PasswordChangeController extends Controller
                 
             return response()->json([
                 'status'=>200,
-                'message' => 'Password changed successfully !'
+                'message' => 'Mot de passe changé avec succès !'
             ], 200); 
         }else{
             return response()->json([
                 'status'=>400,
-                'message' => 'The current password is incorrect'
+                'message' => 'Le mot de passe actuel est incorrect'
             ], 400);
         }
     }

@@ -33,12 +33,12 @@ class UserController extends Controller
 
         if(!$user){
             return response()->json([
-              'message' => 'unknown user' 
+              'message' => 'Utilisateur inconnu' 
             ],400);
         }
         if(!Hash::check($request->password, $user->password)){
             return response()->json([
-              'message' => 'Incorrect password'
+              'message' => 'Mot de passe incorrect'
             ],400);
           }
           
