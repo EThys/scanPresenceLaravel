@@ -57,7 +57,6 @@ class UserController extends Controller
             "userName"=>'required',
             "password"=>'required',
             "email"=>'required|unique:TUsers',
-            "IsAdmin"=>'required'
         ]);
 
         if($validatedData->fails()){
@@ -72,7 +71,6 @@ class UserController extends Controller
             'userName'=>$request->userName,
             'password'=>bcrypt($request->password),
             'email'=>$request->email,
-            'IsAdmin'=>$request->IsAdmin,
 
         ]);
         return response()->json([

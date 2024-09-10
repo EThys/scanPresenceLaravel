@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\PresenceHistory;
@@ -38,23 +39,6 @@ class TicketController extends Controller
 }
 
 public function scan(Request $request) {
-
-    $validated = $request->validate(['qrcode' => 'required|string']);
-    $qrcode = $validated['qrcode'];
-  
-    $ticket = Ticket::where('qrcode', $qrcode)->first();
-  
-    if(!$ticket) {
-      return response()->json(['message' => 'no'], 404);
-    }
-    if($ticket->status == 1) {
-      return response()->json(['message' => 'noscan'], 400);
-    }
-  
-    $ticket->status = 1;
-    $ticket->save();
-  
-    return response()->json(['message' => 'scan'], 200);
   }
   public function scanBest(Request $request) {
     $validated = $request->validate(['qrcode' => 'required|string']);
@@ -64,12 +48,13 @@ public function scan(Request $request) {
     if (!$ticket) {
         return response()->json(['message' => 'no'], 404);
     }
-
-    // Vérifiez si la date de réinitialisation est différente d'aujourd'hui
+    $todayFalse=Carbon::create('2024-09-16')->format('Y-m-d');
     $today = now()->format('Y-m-d');
     if ($ticket->last_reset_date !== $today) {
-        // Réinitialiser tous les statuts à 0
-        Ticket::query()->update(['status' => 0, 'last_reset_date' => $today]);
+        // Réinitialiser le statut du ticket spécifique
+        $ticket->status = 0;
+        $ticket->last_reset_date = $today;
+        $ticket->save();
     }
 
     // Vérifiez si le ticket a déjà été scanné
