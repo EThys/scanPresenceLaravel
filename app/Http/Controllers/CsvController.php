@@ -20,35 +20,34 @@ class CsvController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        // Store the uploaded file
+
         $path = $request->file('file')->store('uploads');
 
-        // Load the CSV
         $csv = Reader::createFromPath(storage_path('app/' . $path), 'r');
-        $csv->setHeaderOffset(0); 
+        $csv->setHeaderOffset(0);
 
-        
         $stmt = (new Statement());
-
         $records = $stmt->process($csv);
 
         foreach ($records as $record) {
-            Ticket::create([
-                'serie' => $record['serie'],
-                'name' => $record['name'],
-                'price' => $record['price'],
-                'barcode' => $record['barcode'],
-                'qrcode' => $record['qrcode'],
-                'eventName' => $record['eventName'],
-                'eventAddress' => $record['eventAddress'],
-                'eventDate' => $record['eventDate'],
-                'eventEndDate' => $record['eventEndDate'],
-                'eventCurrency' => $record['eventCurrency'],
-                'eventId' => $record['eventId'],
-            ]);
+            // Vérifiez si le ticket existe déjà
+            $exists = Ticket::where('nom', $record['nom'])
+                            ->where('postnom', $record['postnom'])
+                            ->where('prenom', $record['prenom'])
+                            ->first();
+
+            if (!$exists) {
+                Ticket::create([
+                    'nom' => $record['nom'],
+                    'postnom' => $record['postnom'],
+                    'prenom' => $record['prenom'],
+                    'nombre_des_personnes' => $record['nombre_des_personnes'],
+                    'civilite' => $record['civilite'],
+                    'presence' => $record['presence']
+                ]);
+            }
         }
 
-        return response()->json(['success' => 'CSV processed and data saved.']);
+        return response()->json(['success' => 'CSV processed and data saved, duplicates ignored.']);
     }
 }
-
