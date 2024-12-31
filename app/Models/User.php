@@ -20,7 +20,7 @@ class User extends Authenticatable
     use HasFactory;
     protected $primaryKey = "UserId";
     public $timestamps = false;
-    public $table="TUsers";
+    public $table="tusers";
     protected $fillable = [
         'userName',
         'email',

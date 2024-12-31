@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('TPresenceHistories', function (Blueprint $table) {
+        Schema::create('tpresenceHistories', function (Blueprint $table) {
             $table->bigIncrements("PresenceId");
             $table->unsignedBigInteger('TicketId');
             $table->date('scan_date');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('TPresenceHistories');
+        Schema::dropIfExists('tpresenceHistories');
     }
 };

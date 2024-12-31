@@ -9,7 +9,7 @@ class PresenceHistory extends Model
 {
     protected $primaryKey = "TPresenceId";
     public $timestamps = false;
-    public $table="TPresenceHistories";
+    public $table="TpresenceHistories";
     use HasFactory;protected $fillable = [
         "PresenceId",
         "TicketId",
