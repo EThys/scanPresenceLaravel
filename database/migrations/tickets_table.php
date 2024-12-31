@@ -11,21 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('TTickets', function (Blueprint $table) {
+        Schema::create('ttickets', function (Blueprint $table) {
             $table->bigIncrements('TicketId');
-            $table->string('serie')->nullable();
-            $table->string('name')->nullable();
-            $table->decimal('price', 10, 2)->nullable(); 
-            $table->string('barcode')->nullable(); 
-            $table->string('qrcode'); 
-            $table->string('eventName')->nullable(); 
-            $table->string('eventAddress')->nullable();
-            $table->string('eventDate')->default('1970-01-01'); // Valeur par défaut
-            $table->string('eventEndDate')->default('1970-01-01'); // Valeur par défaut
-            $table->string('eventCurrency', 3)->nullable(); 
-            $table->string('eventId')->nullable(); 
-            $table->enum('status', [0, 1])->default(0);
-            $table->date('last_reset_date')->nullable();
+            $table->string('nom');
+            $table->string('postnom')->nullable();
+            $table->string('prenom');
+            $table->integer('nombre_des_personnes');
+            $table->string('civilite');
+            $table->boolean('presence')->default(false);
+            $table->timestamps();
             $table->rememberToken();
         });
     }
@@ -35,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('TTickets');
+        Schema::dropIfExists('ttickets');
     }
 };
