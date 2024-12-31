@@ -20,12 +20,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register',[UserController::class, 'register']);
 Route::post('/login',[UserController::class, 'login']);
-Route::post('/test',[TicketController::class, 'store']);
-Route::post('/scan',[TicketController::class, 'scanBest']);
 Route::post('/uploadCsv', [CsvController::class, 'upload']);
+Route::get('/all/tickets', [TicketController::class, 'getAllTickets']);
+Route::post('/tickets/{id}/presence', [TicketController::class, 'updatePresence']);
+Route::get('/tickets/search', [TicketController::class, 'searchTickets']);
 Route::post('/changePassword', [PasswordChangeController::class, 'changePassword']);
+Route::post('/reset', [TicketController::class, 'resetAllStatus']);
+
 
 Route::group(['middleware'=>["auth:sanctum"]],function(){
     Route::get('/logout',[UserController::class, 'logout']);
     Route::post('/changePassword',[PasswordChangeController::class, 'changePassword']);
+
 });
