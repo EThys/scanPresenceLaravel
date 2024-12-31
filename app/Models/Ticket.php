@@ -10,19 +10,14 @@ class Ticket extends Model
     use HasFactory;
     protected $primaryKey = "TicketId";
     public $timestamps = false;
-    public $table="TTickets";
+    public $table="ttickets";
 
     protected $fillable = [
-        "serie",
-        "name",
-        "price",
-        "barcode",
-        "qrcode",
-        "eventName",
-        "eventAddress",
-        "eventDate",
-        "eventEndDate",
-        "eventCurrency",
-        "eventId",
+        "nom",
+        "postnom",
+        "prenom",
+        "nombre_des_personnes",
+        "civilite",
+        "presence"
     ];
 }
